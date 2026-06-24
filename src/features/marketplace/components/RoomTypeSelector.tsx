@@ -11,6 +11,7 @@ type RoomTypeSelectorProps = {
   selectedId?: string;
   quantity: number;
   currency: string;
+  fallbackAvailable?: number;
   onSelect: (room: RoomTypeModel) => void;
   onQuantityChange: (quantity: number) => void;
 };
@@ -20,11 +21,12 @@ export function RoomTypeSelector({
   selectedId,
   quantity,
   currency,
+  fallbackAvailable,
   onSelect,
   onQuantityChange,
 }: RoomTypeSelectorProps) {
   const selected = roomTypes.find((room) => room.id === selectedId);
-  const maxAvailable = selected?.availableInRange ?? 1;
+  const maxAvailable = selected?.availableInRange ?? fallbackAvailable ?? 1;
 
   return (
     <View style={styles.container}>

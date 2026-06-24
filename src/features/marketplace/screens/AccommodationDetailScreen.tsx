@@ -70,7 +70,7 @@ export function AccommodationDetailScreen({ route }: Props) {
     [reviewsData],
   );
 
-  const selectedRoomAvailability = selectedRoom?.availableInRange ?? 1;
+  const selectedRoomAvailability = selectedRoom?.availableInRange ?? detail?.availableRooms ?? 1;
   const canContinue =
     Boolean(detail && selectedRoom) &&
     isValidDateRange(search.fechaInicio, search.fechaFin) &&
@@ -93,7 +93,7 @@ export function AccommodationDetailScreen({ route }: Props) {
         nombre: selectedRoom.name,
         numHabitaciones: roomQuantity,
         precioNocheAplicado: selectedRoom.pricePerNight,
-        disponiblesEnRango: selectedRoom.availableInRange ?? roomQuantity,
+        disponiblesEnRango: selectedRoom.availableInRange ?? detail.availableRooms ?? roomQuantity,
       },
     };
 
@@ -163,6 +163,7 @@ export function AccommodationDetailScreen({ route }: Props) {
             selectedId={selectedRoom?.id}
             quantity={roomQuantity}
             currency={detail.currency}
+            fallbackAvailable={detail.availableRooms}
             onSelect={(room) => {
               setSelectedRoom(room);
               setRoomQuantity(1);
